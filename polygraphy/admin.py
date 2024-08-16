@@ -5,7 +5,7 @@ from .models import (
     commonInfoText,
     Book,
     NewsPapper,
-    Magazine,
+    # Magazine,
     Journalist,
     Redactor,
     Article,
@@ -13,7 +13,7 @@ from .models import (
 
 admin.site.register(Book)
 admin.site.register(NewsPapper)
-admin.site.register(Magazine)
+# admin.site.register(Magazine)
 admin.site.register(Journalist)
 admin.site.register(Redactor)
 admin.site.register(Article)

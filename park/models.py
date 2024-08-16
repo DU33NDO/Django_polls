@@ -25,18 +25,18 @@ class Child(PersonExample):
         return self.name
 
 
-class IceCream(models.Model):
-    qtype = {"C": "Chocolate", "V": "Vanilla", "M": "Mint"}
-    flavor = models.CharField(choices=qtype, max_length=200)
-    price = models.IntegerField()
+# class IceCream(models.Model):
+#     # qtype = {"C": "Chocolate", "V": "Vanilla", "M": "Mint"}
+#     # flavor = models.CharField(choices=qtype, max_length=200)
+#     price = models.IntegerField()
 
-    def __str__(self) -> str:
-        return self.flavor
+#     def __str__(self) -> str:
+#         return self.flavor
 
 
-class IceCreamKiosk(models.Model):
-    address = models.CharField(max_length=200)
-    IceCream = models.ManyToManyField(IceCream, related_name="iceCreams")
+# class IceCreamKiosk(models.Model):
+#     address = models.CharField(max_length=200)
+#     IceCream = models.ManyToManyField(IceCream, related_name="iceCreams")
 
-    def __str__(self) -> str:
-        return self.address
+#     def __str__(self) -> str:
+#         return self.address

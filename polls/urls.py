@@ -1,6 +1,7 @@
 from xml.etree.ElementInclude import include
 from django.urls import path, re_path
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView, PasswordChangeView, PasswordChangeDoneView
+from django.urls import reverse_lazy
 
 from . import views
 
@@ -38,5 +39,9 @@ urlpatterns = [
     path('q_deletev/<int:pk>/', views.QuestionDeleteView.as_view(), name='q-deleteV'),
     path('q_paginator', views.paginator, name='q-paginator'),
     path('login', LoginView.as_view(template_name="polls/login.html",next_page='polls:index'), name='polls/login'),
-    path('logout', LogoutView.as_view(next_page='polls:index'), name='logout')
+    path('logout', LogoutView.as_view(next_page='polls:index'), name='logout'),
+    path('password_change', PasswordChangeView.as_view(template_name='polls/change_password.html', success_url=reverse_lazy('polls:polls/password_change_done')), name='password_change'),
+    path('password_change_done', PasswordChangeDoneView.as_view(template_name='polls/password_changed.html'), name='password_changed'),
+    path('password_reset', PasswordResetView.as_view(template_name='polls/reset_password.html', subject_template_name='polls/reset_subjet.txt', email_template_name='polls/reset_email.txt'), name='password_reset'),
+    path('password_reset/done', PasswordResetDoneView.as_view(template_name='polls/password_reset_done.html'), name='password_reset_done'),
 ]

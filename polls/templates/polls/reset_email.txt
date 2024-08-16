@@ -1,0 +1,7 @@
+{% autoescape off %}
+Салам {{  user.username  }}
+Сразу к делу, вот url адрес:
+{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb=uid token=token %}
+
+До свидания!
+{% endautoescape %}

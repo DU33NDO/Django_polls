@@ -1,6 +1,7 @@
-from curses.ascii import HT
+# from curses.ascii import HT
 from errno import ESTALE
 from django.contrib.auth import logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView
 import imp
 from pyexpat import model
@@ -171,10 +172,11 @@ class QuestionDetail(DetailView):
     model = Question
 
 
-class QuestionList(ListView):
+class QuestionList(LoginRequiredMixin, ListView):
     template_name = "polls/list.html"
     paginate_by = 6
     model = Question
+    login_url = reverse_lazy("polls:polls/login")
 
 class ChoiceListView(ListView):
     model = Choice

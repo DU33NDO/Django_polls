@@ -23,16 +23,16 @@ class NewsPapper(commonInfoText):
         return self.author
 
 
-class Magazine(commonInfoText):
-    QTYPE = {
-        "F": "Fashion",
-        "B": "Business",
-        "S": "Scinetific",
-    }
-    type = models.CharField(max_length=100, choices=QTYPE)
+# class Magazine(commonInfoText):
+#     QTYPE = {
+#         "F": "Fashion",
+#         "B": "Business",
+#         "S": "Scinetific",
+#     }
+#     type = models.CharField(max_length=100, choices=QTYPE)
 
-    def __str__(self) -> str:
-        return self.author
+#     def __str__(self) -> str:
+#         return self.author
 
 
 class commonInfoPerson(models.Model):
