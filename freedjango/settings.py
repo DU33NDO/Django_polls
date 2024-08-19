@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # "park",
+    "kaspi",
     "polls",
     "social_django"
 ]
@@ -50,6 +50,9 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'AIzaSyD37WOn_vZzfPQE3l38SizKzZQe5eQp_jo'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'R_9x9eTV6uooV_JysalVTlNpLUA'
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
