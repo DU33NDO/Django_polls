@@ -1,10 +1,19 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericRelation
+from django.contrib.contenttypes.models import ContentType
+
+from .manager import CustomGoodManager, CustomMagazinManager, CustomQuerySet
+
+
 
 class Good(models.Model):
     name = models.CharField(max_length=256)
     description = models.CharField(max_length=256)
     price = models.IntegerField()
+    reviews = GenericRelation('Review', default='234')
+    objects = CustomGoodManager()
 
     def __str__(self):
         return self.name
@@ -15,9 +24,18 @@ class Magazin(models.Model):
     address = models.CharField(max_length=256)
     goods = models.ManyToManyField(to=Good, through='MagazinGoods', through_fields=('magazin', 'good'))
     staff = models.ManyToManyField(User)
+    reviews = GenericRelation('Review', default='234')
+    objects = CustomMagazinManager()
+    
+    # class Meta: 
+    #     abstract = True
 
     def __str__(self):
         return self.name
+
+
+# class kaspiObject(Magazin):
+#     description = models.CharField(max_length=256)
 
 class MagazinGoods(models.Model):
     good = models.ForeignKey(Good, on_delete=models.CASCADE)
@@ -25,3 +43,14 @@ class MagazinGoods(models.Model):
 
     def __str__(self):
         return f"{self.good} in {self.magazin}"
+
+class Review(models.Model):
+    content = models.TextField(max_length=256)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey(ct_field='content_type', fk_field='object_id')
+
+class For_Good(Good):
+    class Meta:
+        proxy = True
+        ordering = ['name']
