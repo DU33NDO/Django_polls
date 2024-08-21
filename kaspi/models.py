@@ -3,9 +3,10 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 
 from .manager import CustomGoodManager, CustomMagazinManager, CustomQuerySet
-
 
 
 class Good(models.Model):
@@ -17,6 +18,15 @@ class Good(models.Model):
 
     def __str__(self):
         return self.name
+
+@receiver(post_save, sender=Good)
+def post_save_dispatcher(sender, **kwargs):
+    if kwargs['created']:
+        print(f'Товар был успешно добавлен!!')
+    
+@receiver(post_delete, sender=Good)
+def post_delete_dispatcher(sender, **kwargs):
+    print(f'Товар был успешно удален(((((')
 
 class Magazin(models.Model):
     name = models.CharField(max_length=256)
