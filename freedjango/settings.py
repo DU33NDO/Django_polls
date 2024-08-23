@@ -91,9 +91,9 @@ WSGI_APPLICATION = "freedjango.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "django",
+        "NAME": "secondForClassWorkDjango",
         "USER": "postgres",
-        "PASSWORD": "123",
+        "PASSWORD": "MAL123",
         "HOST": "localhost",
         "PORT": "5432",
     }

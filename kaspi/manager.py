@@ -7,7 +7,7 @@ class CustomQuerySet(models.QuerySet):
 
 class CustomMagazinManager(models.Manager):
     def get_queryset(self) -> models.QuerySet:
-        return super().get_queryset().filter(created_date__gte=now)
+        return super().get_queryset().filter(created_date__gte=now().date())
 
 class CustomGoodManager(models.Manager):
     def get_queryset(self) -> models.QuerySet:

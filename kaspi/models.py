@@ -5,6 +5,8 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+from django.contrib.postgres.fields import DateRangeField, DateTimeRangeField, ArrayField
+from django.contrib.postgres.fields.ranges import DateTimeRangeField, DateRangeField
 
 from .manager import CustomGoodManager, CustomMagazinManager, CustomQuerySet
 
@@ -35,6 +37,10 @@ class Magazin(models.Model):
     goods = models.ManyToManyField(to=Good, through='MagazinGoods', through_fields=('magazin', 'good'))
     staff = models.ManyToManyField(User)
     reviews = GenericRelation('Review', default='234')
+    date_range = DateRangeField(null=True, blank=True)
+    datetime_range = DateTimeRangeField(null=True, blank=True)  
+    array_field = ArrayField(models.CharField(max_length=200), null=True, blank=True) 
+
     objects = CustomMagazinManager()
     
     # class Meta: 

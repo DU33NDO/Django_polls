@@ -3,7 +3,6 @@ from errno import ESTALE
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView
-import imp
 from pyexpat import model
 from random import choices
 from re import template
