@@ -1,0 +1,16 @@
+1. git init Инициализация гита, создание локального репозитория
+2. git remote add origin <ссылка на ваш репозиторий>
+3. git checkout -b main Создание ветки с именем main и переход на эту ветку
+git checkout main Переход на ветку main
+4. git branch -M main Определение ветки с именем main, как освновной
+5. git add . Выбор файлов для загрузки
+6. git commit -m "init commit" Сбор файлов после git add в кучу для отправки
+7. git push origin <название ветки>
+
+git add .
+git commit -m "message"
+git push origin <название ветки>
+
+
+Для скачивания репозитория с гитхаба
+1. git clone <ссылка>

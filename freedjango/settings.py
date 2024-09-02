@@ -42,17 +42,19 @@ INSTALLED_APPS = [
     "django.contrib.postgres",
     "kaspi",
     "polls",
-    "social_django"
+    "social_django",
+    "bootstrap4",
+    "userprofile",
 ]
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.instagram.InstagramOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
+    "social_core.backends.google.GoogleOAuth2",
+    "social_core.backends.instagram.InstagramOAuth2",
+    "django.contrib.auth.backends.ModelBackend",
 )
 
-SOCIAL_AUTH_URL_NAMESPACE = 'social'
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'AIzaSyD37WOn_vZzfPQE3l38SizKzZQe5eQp_jo'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'R_9x9eTV6uooV_JysalVTlNpLUA'
+SOCIAL_AUTH_URL_NAMESPACE = "social"
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "AIzaSyD37WOn_vZzfPQE3l38SizKzZQe5eQp_jo"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "R_9x9eTV6uooV_JysalVTlNpLUA"
 
 
 MIDDLEWARE = [
@@ -63,6 +65,9 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.cache.UpdateCacheMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.cache.FetchFromCacheMiddleware",
 ]
 
 ROOT_URLCONF = "freedjango.urls"
@@ -78,15 +83,18 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
             ],
+            "libraries": {"filtersandtags": "freedjango.templatetags.filtersandtags"},
         },
     },
 ]
 
 WSGI_APPLICATION = "freedjango.wsgi.application"
 
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "/media/"
 
 DATABASES = {
     "default": {
@@ -123,6 +131,23 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis-14726.c302.asia-northeast1-1.gce.redns.redis-cloud.com:14726",
+        "OPTIONS": {
+            "PASSWORD": "JaCqTWn1FdtsgoL9Bt35Ht50GKmRztAm",
+        },
+    }
+}
+
+# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+# SESSION_CACHE_ALIAS = 'session_storage'
+
+CACHE_MIDDLEWARE_ALIAS = "default"
+CACHE_MIDDLEWARE_SECONDS = 30
+CACHE_MIDDLEWARE_KEY_PREFIX = "my-prefix"
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

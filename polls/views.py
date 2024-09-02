@@ -23,13 +23,16 @@ from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
+from django.views.decorators.cache import cache_page
 from django.core.paginator import Paginator
 
-from .forms import QuestionForm 
+from .forms import QuestionForm
+
+
 def index(request):
-    
+
     return render(request, "polls/base.html")
-    
+
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
@@ -81,13 +84,15 @@ def choice_to_question(request):
     c.save()
     return HttpResponse("Question был привязан к Choice")
 
+
 def get_id(request, question_id):
-    if question_id< 100:
+    if question_id < 100:
         q = Question.objects.get(pk=question_id)
         return HttpResponse(q.question_text)
     else:
         # return HttpResponseRedirect(reverse("polls:latest"))
         return redirect("polls:latest")
+
 
 def question_to_choice(request):
     q = Question.objects.last()
@@ -96,31 +101,41 @@ def question_to_choice(request):
     q.save()
     return HttpResponse("Choice был привязан к Question")
 
+
 def latest(request):
-    return HttpResponse(Question.objects.latest('question_text'))
+    return HttpResponse(Question.objects.latest("question_text"))
+
 
 def count(request):
     return HttpResponse(Question.objects.count())
 
-def agregate(request):
-    result = Choice.objects.aggregate(votes_min=Min('votes'), votes_max=Max('votes'))
-    return HttpResponse(F"MAX:{result['votes_max']}. MIN:{result['votes_min']}")
 
-def annotate(request):  
-    annotated_choices = Choice.objects.annotate(min_votes=Min('votes'))
-    return HttpResponse(annotated_choices.values('id','choice_text','min_votes'))
+def agregate(request):
+    result = Choice.objects.aggregate(votes_min=Min("votes"), votes_max=Max("votes"))
+    return HttpResponse(f"MAX:{result['votes_max']}. MIN:{result['votes_min']}")
+
+
+def annotate(request):
+    annotated_choices = Choice.objects.annotate(min_votes=Min("votes"))
+    return HttpResponse(annotated_choices.values("id", "choice_text", "min_votes"))
 
 
 def avg(request):
-    avg_choices = Choice.objects.annotate(avg_votes=Avg('votes'))
-    return HttpResponse(avg_choices.values('avg_votes'))
+    avg_choices = Choice.objects.annotate(avg_votes=Avg("votes"))
+    return HttpResponse(avg_choices.values("avg_votes"))
+
 
 def concat(request):
-    concat_questions = Question.objects.annotate(concat_question=Concat(F('question_text'), Value(','), Value(' понятен ли вам вопрос?')))
-    return HttpResponse(concat_questions.values_list('concat_question'))
+    concat_questions = Question.objects.annotate(
+        concat_question=Concat(
+            F("question_text"), Value(","), Value(" понятен ли вам вопрос?")
+        )
+    )
+    return HttpResponse(concat_questions.values_list("concat_question"))
+
 
 def all_questions(request):
-    return HttpResponse(Question.objects.values_list('question_text'))
+    return HttpResponse(Question.objects.values_list("question_text"))
 
 
 def delete_id(request, question_number):
@@ -134,15 +149,15 @@ def delete_id(request, question_number):
 
 def get_question(request, question_str):
     q = Question.objects.filter(question_text__icontains=question_str)
-    return HttpResponse(q if len(q)> 0 else 'Does not exist')
-
+    return HttpResponse(q if len(q) > 0 else "Does not exist")
 
 
 class HelloWorld(View):
-    def get(self, request,*args, **kwargs):
+    def get(self, request, *args, **kwargs):
         return HttpResponse("hello world!")
 
-class  QuestionDetailView(TemplateView):
+
+class QuestionDetailView(TemplateView):
     template_name = "polls/detail.html"
 
     def get_context_data(self, **kwargs):
@@ -156,7 +171,6 @@ class QuestionRedirectView(RedirectView):
     query_string = True
     pattern_name = "polls:detail-first"
 
-
     def get_redirect_url(self, *args, **kwargs):
         try:
             question = Question.objects.get(pk=kwargs["question_id"])
@@ -167,21 +181,23 @@ class QuestionRedirectView(RedirectView):
 
 
 class QuestionDetail(DetailView):
-    template_name = 'polls/detail.html'
+    template_name = "polls/detail.html"
     model = Question
 
 
 class QuestionList(LoginRequiredMixin, ListView):
     template_name = "polls/list.html"
-    paginate_by = 6
+    paginate_by = 2
     model = Question
     login_url = reverse_lazy("polls:polls/login")
+
 
 class ChoiceListView(ListView):
     model = Choice
     template_name = "polls/choice.html"
+
     def get_queryset(self, **kwargs):
-        q = Choice.objects.filter(votes__gt=self.kwargs['vote'])
+        q = Choice.objects.filter(votes__gt=self.kwargs["vote"])
         return q
 
 
@@ -189,15 +205,15 @@ class QuestionFormView(FormView):
     form_class = QuestionForm
     template_name = "polls/questionform.html"
     success_url = "polls:detail"
-    
+
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
-    
-    def get_form(self, form_class=None) :
+
+    def get_form(self, form_class=None):
         self.object = super().get_form(form_class)
         return self.object
-    
+
     def get_success_url(self) -> str:
         return self.object.instance.get_absolute_url()
 
@@ -205,13 +221,13 @@ class QuestionFormView(FormView):
 class QuestionCreateView(CreateView):
     model = Question
     fields = "__all__"
-    template_name = 'polls/questionform.html'
+    template_name = "polls/questionform.html"
 
 
 class QuestionUpdateView(UpdateView):
     model = Question
-    template_name = 'polls/update.html'
-    fields = '__all__'
+    template_name = "polls/update.html"
+    fields = "__all__"
 
 
 class QuestionDeleteView(DeleteView):
@@ -219,14 +235,12 @@ class QuestionDeleteView(DeleteView):
     success_url = "polls:list"
 
 
-
 def paginator(request):
     q = Question.objects.all()
-    paginator = Paginator(q, 3)
-    if 'page' in request.GET:
+    paginator = Paginator(q, 2)
+    if "page" in request.GET:
         page_num = request.GET.get("page")
     else:
         page_num = 1
     page_obj = paginator.get_page(page_num)
     return render(request, "polls/paginator.html", {"page_obj": page_obj})
-

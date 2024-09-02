@@ -1,5 +1,5 @@
 {% extends "polls/base.html"%}
-
+{% load bootstrap4 %}
 
 {% block main %}
 <h2>Login</h2>
@@ -16,7 +16,7 @@
 {% else %}
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% bootstrap_form form %}
     <input type="hidden" value="{{ next }}">
     <input type="submit" value="Войти">
 </form>

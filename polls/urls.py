@@ -2,6 +2,7 @@ from xml.etree.ElementInclude import include
 from django.urls import path, re_path
 from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView, PasswordChangeView, PasswordChangeDoneView
 from django.urls import reverse_lazy
+from django.views.decorators.cache import cache_page
 
 from . import views
 

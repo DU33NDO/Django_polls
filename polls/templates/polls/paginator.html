@@ -1,5 +1,6 @@
 {% extends "polls/base.html"%}
 {% load static %}
+{% load bootstrap4 %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,6 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href=" {% static '/polls/css/main.css' %}">
     <title>Q</title>
+    {% bootstrap_css %} 
+    {% bootstrap_javascript jquery=True %}
 </head>
 <body>
     <div id="global">
@@ -21,8 +24,9 @@
     {% endblock main %}
 </div>
 <div id="content">
+    {% bootstrap_pagination page size="small" %}
     {% block content %}
-    <span class="step-links">
+    <!-- <span class="step-links">
         {% if page_obj.has_previous %}
             <a href="?page=1">&laquo; first</a>
             <a href="?page={{ page_obj.previous_page_number }}">previous</a>
@@ -36,7 +40,7 @@
             <a href="?page={{ page_obj.next_page_number }}">next</a>
             <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
-    </span>
+    </span> -->
     {% endblock content %}
 </div>
 </div>
