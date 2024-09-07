@@ -7,5 +7,5 @@ urlpatterns = [
     path("users/", include("users.urls")),
     path("polls/", include("polls.urls", namespace="plsNamespace")),
     path("kaspi/", include("kaspi.urls", namespace="pooik")),
-    path("userprof/", include("userprofile.urls")),
+    # path("userprof/", include("userprofile.urls")),
 ]

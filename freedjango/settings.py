@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     "polls",
     "social_django",
     "bootstrap4",
-    "userprofile",
+    # "userprofile",
 ]
 AUTHENTICATION_BACKENDS = (
     "social_core.backends.google.GoogleOAuth2",
@@ -65,9 +65,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django.middleware.cache.UpdateCacheMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.cache.FetchFromCacheMiddleware",
+    # "django.middleware.cache.UpdateCacheMiddleware",
+    # "django.middleware.common.CommonMiddleware",
+    # "django.middleware.cache.FetchFromCacheMiddleware",
+    "freedjango.middleware.atr_middleware",
+    "freedjango.middleware.CustomMiddleware",
 ]
 
 ROOT_URLCONF = "freedjango.urls"
@@ -141,6 +143,8 @@ CACHES = {
         },
     }
 }
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 # SESSION_CACHE_ALIAS = 'session_storage'

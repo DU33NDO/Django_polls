@@ -12,6 +12,8 @@
     {% csrf_token %}
     <button type="submit">logout</button>
 </form>
+<a href="http://127.0.0.1:8000/polls/email_send">проверка на email</a>
+<a href="http://127.0.0.1:8000/polls/file_send">проверка на file_send</a>
 <a href="http://127.0.0.1:8000/polls/password_change">Lost password?</a>
 {% else %}
 <form method="post">

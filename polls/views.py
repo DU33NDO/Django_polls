@@ -25,13 +25,14 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
 from django.views.decorators.cache import cache_page
 from django.core.paginator import Paginator
+from django.core.mail import BadHeaderError, send_mail
 
 from .forms import QuestionForm
 
 
 def index(request):
-
-    return render(request, "polls/base.html")
+    custom = request.my_custom_attr_2
+    return render(request, "polls/base.html", {"middleware": custom})
 
 
 def detail(request, question_id):
@@ -244,3 +245,38 @@ def paginator(request):
         page_num = 1
     page_obj = paginator.get_page(page_num)
     return render(request, "polls/paginator.html", {"page_obj": page_obj})
+
+
+def check_custom_middleware(request):
+    custom_atr = request.my_custom_attr
+    if "counter" in request.COOKIES:
+        cnt = int(request.COOKIES["counter"]) + 1
+    else:
+        cnt = 1
+    response = HttpResponse("Here the total views: ")
+    response.set_cookie("counter", cnt)
+    return response
+    # return HttpResponse(f"Here: {custom_atr}")
+
+
+def chect_class_middleware(request):
+    custom_atr = request.my_custom_attr_2
+    return HttpResponse(f"Here_2: {custom_atr}")
+
+
+def send_email(request):
+    subject = request.POST.get("subject", "ayo salam")
+    message = request.POST.get("message", "меняй пароль")
+    from_email = request.POST.get("from_email", "123@example.ru")
+    if subject and message and from_email:
+        try:
+            send_mail(subject, message, from_email, ["admin@example.com"])
+        except BadHeaderError:
+            return HttpResponse("Invalid header found.")
+        return HttpResponseRedirect("contact/thanks/")
+    else:
+        return HttpResponse("Make sure all fields are entered and valid.")
+
+
+def thanks(request):
+    return HttpResponse("Thank u")

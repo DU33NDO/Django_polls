@@ -31,6 +31,7 @@
 
     <div id="content">
       {% block content %}
+      <h1>{{ middleware }}</h1>
       <h1>{{  "hello word"|back_title  }}</h1>
       <p>{{ "check this out"|custom_add }}</p>
       {% if user.is_authenticated %}
