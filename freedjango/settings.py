@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     "polls",
     "social_django",
     "bootstrap4",
+    "rest_framework",
+    "corsheaders",
     # "userprofile",
 ]
 AUTHENTICATION_BACKENDS = (
@@ -60,6 +62,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "R_9x9eTV6uooV_JysalVTlNpLUA"
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -71,6 +74,8 @@ MIDDLEWARE = [
     "freedjango.middleware.atr_middleware",
     "freedjango.middleware.CustomMiddleware",
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = "freedjango.urls"
 
