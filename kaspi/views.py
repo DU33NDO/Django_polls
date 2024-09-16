@@ -72,7 +72,7 @@ def api_goods_2(request):
 #     serializer_class = GoodSerializer
 
 
-@permission_classes((IsAuthenticated))
+@permission_classes((IsAuthenticated,))
 class APIGoodViewSet(ModelViewSet):
     queryset = Good.objects.all()
     serializer_class = GoodSerializer
