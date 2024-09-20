@@ -1,1 +1,1 @@
-web: gunicorn freedjango.wsgi
+web: gunicorn freedjango.wsgi --log-file -
