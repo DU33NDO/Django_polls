@@ -34,7 +34,7 @@ SECRET_KEY = "django-insecure-#g-84&bph@pj@qoq@i4rsr&k-b$8v=5br9vs^m+j32i6mg)7d&
 # DEBUG = True
 DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['django-deploy-correct-8c31a2df9a6c.herokuapp.com', 'localhost', '127.0.0.1']
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
