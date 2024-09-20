@@ -1,1 +1,1 @@
-web: gunicorn freedjango.wsgi
+web: cd freedjango && gunicorn freedjango.wsgi
