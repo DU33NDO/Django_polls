@@ -1,0 +1,28 @@
+{% extends "polls/base.html"%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="content">
+      {% block content %}
+      <h1>User Detail: {{ user.username }}</h1>
+
+      <p><strong>Username:</strong> {{ user.username }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>First Name:</strong> {{ user.first_name }}</p>
+      <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+      <p><strong>Date Joined:</strong> {{ user.date_joined }}</p>
+      <p><strong>Last Login:</strong> {{ user.last_login }}</p>
+      {% endblock content %}
+    </div>
+    <div id="main">
+      {% block main %}
+      <h2>update view</h2>
+      {% endblock main %}
+    </div>
+  </body>
+</html>

@@ -2,6 +2,7 @@
 from errno import ESTALE
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.contrib.auth.views import LogoutView
 from pyexpat import model
 from random import choices
@@ -26,6 +27,7 @@ from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteVi
 from django.views.decorators.cache import cache_page
 from django.core.paginator import Paginator
 from django.core.mail import BadHeaderError, send_mail
+
 
 from .forms import QuestionForm
 
@@ -280,3 +282,21 @@ def send_email(request):
 
 def thanks(request):
     return HttpResponse("Thank u")
+
+class UserListView(ListView):
+    model = User
+    template_name = "polls/user_list.html"
+    context_object_name = "users"
+    paginate_by = 10
+
+    def get_queryset(self):
+        username = self.request.GET.get('username')
+        if username:
+            return User.objects.filter(username=username)
+        return super().get_queryset()
+
+
+class UserDetailView(DetailView):
+    model = User
+    template_name = "polls/user_detail.html"
+    context_object_name = "user"

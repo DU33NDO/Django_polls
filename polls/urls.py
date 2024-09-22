@@ -87,4 +87,6 @@ urlpatterns = [
     path("class_middle", views.chect_class_middleware, name="class_middleware"),
     path("email_send", views.send_email, name="send_email"),
     path("contact/thanks/", views.thanks, name="thanks"),
+    path("all_users/", views.UserListView.as_view(), name="user_list"),
+    path("all_users/<int:pk>/", views.UserDetailView.as_view(), name="user_detail"),
 ]
