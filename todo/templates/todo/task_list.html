@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+</head>
+<body>
+    <header>
+        <h1>Task List</h1>
+        <a href="/todo/task/new/">Add New Task</a>
+    </header>
+    <main>
+        <h2>All Tasks</h2>
+        <ul>
+            {% for task in tasks %}
+                <li>
+                    <a href="{% url 'task_detail' task.id %}">{{ task.title }}</a> - {{ task.description }}
+                    <a href="{% url 'task_delete' task.id %}">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </main>
+</body>
+</html>

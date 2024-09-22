@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ task.title }}</title>
+</head>
+<body>
+    <header>
+        <h1>{{ task.title }}</h1>
+    </header>
+    <main>
+        <p>{{ task.description }}</p>
+        <a href="{% url 'task_edit' task.id %}">Edit</a>
+        <a href="{% url 'task_delete' task.id %}">Delete</a>
+        <a href="{% url 'task_list' %}">Back to Task List</a>
+    </main>
+    <footer>
+        <p>&copy; 2024 Your App Name</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Task</title>
+</head>
+<body>
+    <header>
+        <h1>Delete Task</h1>
+    </header>
+    <main>
+        <p>Are you sure you want to delete the task "{{ task.title }}"?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Yes, delete it</button>
+        </form>
+        <a href="{% url 'task_list' %}">Cancel</a>
+    </main>
+    <footer>
+        <p>&copy; 2024 Your App Name</p>
+    </footer>
+</body>
+</html>

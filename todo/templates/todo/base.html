@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+{% load bootstrap4 %}
+{% load filtersandtags %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} App:Polls {% endblock title %}</title>
+    {% bootstrap_css %} 
+    {% bootstrap_javascript jquery=True %}
+    <link rel="stylesheet" href=" {% static '/polls/css/main.css' %}" />
+  </head>
+  <body>
+    <div class="topnav">
+      {% block nav %}
+      <a class="active" href="http://127.0.0.1:8000/polls/index">Polls</a>
+      <a href="http://127.0.0.1:8000/polls/list">Questions List</a>
+      <a href="http://127.0.0.1:8000/polls/login">Login</a>
+      <a href="http://127.0.0.1:8000/polls/list">Register</a>
+      <a href="{% url 'social:begin' 'google-oauth2' %}">Google+</a>
+      <a href="{% url 'social:begin' 'isagram-oauth2' %}">Insta+</a>
+      {% endblock %}
+    </div>
+    <div id="main">
+      {% block main %}
+      <p>...</p>
+      {% endblock main %}
+    </div>
+
+    <div id="content">
+      {% block content %}
+      <h1>{{ middleware }}</h1>
+      <h1>{{  "hello word"|back_title  }}</h1>
+      <p>{{ "check this out"|custom_add }}</p>
+      {% if user.is_authenticated %}
+      <h1>{% hello_dude user.get_username %}</h1>
+      {%  endif  %}
+      {% endblock content %}
+    </div>
+  </body>
+</html>

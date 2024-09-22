@@ -31,15 +31,19 @@ SECRET_KEY = "django-insecure-#g-84&bph@pj@qoq@i4rsr&k-b$8v=5br9vs^m+j32i6mg)7d&
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = 'RENDER' not in os.environ
+DEBUG = "RENDER" not in os.environ
 
-ALLOWED_HOSTS = ['django-deploy-correct-8c31a2df9a6c.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    "django-deploy-correct-8c31a2df9a6c.herokuapp.com",
+    "localhost",
+    "127.0.0.1",
+]
 
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 # Application definition
@@ -61,6 +65,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "rest_framework_simplejwt",
+    "todo",
     # "userprofile",
 ]
 AUTHENTICATION_BACKENDS = (
@@ -193,17 +198,16 @@ if not IS_HEROKU_APP:
     DEBUG = True
 
 
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'secondForClassWorkDjango',
-        'USER': 'bob1',
-        'PASSWORD': 'MAL123',
-        'HOST': 'localhost',
-        'PORT': '5432',
-        'OPTIONS': {
-            'sslmode': 'disable',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "secondForClassWorkDjango",
+        "USER": "bob1",
+        "PASSWORD": "MAL123",
+        "HOST": "localhost",
+        "PORT": "5432",
+        "OPTIONS": {
+            "sslmode": "disable",
         },
     }
 }
@@ -213,7 +217,7 @@ DATABASES = {
 #         default=os.environ.get('DATABASE_URL'),
 #         conn_max_age=600,
 #         conn_health_checks=True,
-#         ssl_require=False,  
+#         ssl_require=False,
 #     ),
 # }
 
@@ -226,11 +230,9 @@ DATABASES = {
 #         'HOST': 'localhost',
 #         'PORT': '5432',
 #         'OPTIONS': {
-#             'sslmode': 'disable',  
+#             'sslmode': 'disable',
 #         },
 #     }
-
-
 
 
 # if 'DATABASE_URL' not in os.environ:
@@ -299,5 +301,4 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-django_heroku.settings(locals() ,databases=False)
-
+django_heroku.settings(locals(), databases=False)
